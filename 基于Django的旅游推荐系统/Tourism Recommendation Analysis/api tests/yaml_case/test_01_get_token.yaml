@@ -1,0 +1,49 @@
+name: 获取token
+feature: 商城接口项目
+story: 用户相关
+
+parametrize:
+  - [aa, bb, cc]  # 作为数据名
+  - [1, 2, 3]   # 作为数据
+  - [2, 2, 4]   # 作为数据
+  - [3, 3, 6]   # 作为数据
+  - [4, 4, 8]   # 作为数据
+
+request:
+  method: post
+  url: http://101.34.221.219:8010/api.php?a=${aa}&b=${bb}&c=${cc}  # 使用数据
+  params: {
+    "s": "user/login",
+    "application": "app",
+    "application_client_type": "ios",
+  }
+  json: {
+    "accounts": "beifan_1205",
+    "pwd": "beifan_1205",
+    "type": "username"
+  }
+
+
+extract:
+  status_code: [ status_code, '(.*)', ]
+  code: [ json, 'code', ]
+  token: [ json, 'data.token' ]
+  my_sql_command: [str, 'SELECT 1996, 2003, 11']
+
+
+validate:
+  equals:
+    状态码等于200: [ '${status_code}', 200 ]
+    2003等于数据库查询结果: [ '2003', '${sql(${my_sql_command}, 1)}' ]  # ${my_sql_command} 是一个字符串，代表变量
+  not_equals:
+    状态码不等于400: [ '${status_code}', 400 ]
+    状态码不等于500: [ '${status_code}', 500 ]
+    状态码不等于600: [ '${status_code}', 600 ]
+  in:
+    错误码包含2:
+      - 0
+      - ${code}
+  not_in:
+    错误码不包含3:
+      - 3
+      - ${code}

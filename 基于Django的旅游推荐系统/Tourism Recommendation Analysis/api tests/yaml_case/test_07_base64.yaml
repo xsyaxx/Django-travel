@@ -1,0 +1,22 @@
+name: 接口加密base64
+feature: 接口加密项目
+story: base64
+request:
+  method: post
+  url: /base64login
+  data:
+    username: ${base64_encode(admin)}
+    password: ${base64_encode(123)}
+
+
+
+
+extract:
+  status_code: [ status_code, '(.*)', ]
+  error_code: [ json, 'error_code' ]
+
+
+validate:
+  equals:
+    状态码等于200: [ '${status_code}', 200 ]
+    错误码等于200: [ '${error_code}', 0 ]

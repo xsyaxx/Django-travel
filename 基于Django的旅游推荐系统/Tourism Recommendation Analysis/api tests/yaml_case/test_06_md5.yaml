@@ -1,0 +1,22 @@
+name: 接口加密md5
+feature: 接口加密项目
+story: MD5
+request:
+  method: post
+  url: /md5login
+  data:
+    username: ${md5(admin)}
+    password: ${md5(123)}
+
+
+
+
+extract:
+  status_code: [ status_code, '(.*)', ]
+  error_code: [ json, 'error_code' ]
+
+
+validate:
+  equals:
+    状态码等于200: [ '${status_code}', 200 ]
+    错误码等于200: [ '${error_code}', 0 ]

@@ -1,0 +1,22 @@
+name: 接口加密rsa
+feature: 接口加密项目
+story: rsa
+request:
+  method: post
+  url: /rsalogin
+  data:
+    username: ${rsa_encode(admin)}
+    password: ${rsa_encode(123)}
+
+
+
+
+extract:
+  status_code: [ status_code, '(.*)', ]
+  error_code: [ json, 'error_code' ]
+
+
+validate:
+  equals:
+    状态码等于200: [ '${status_code}', 200 ]
+    错误码等于200: [ '${error_code}', 0 ]

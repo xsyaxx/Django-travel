@@ -1,0 +1,27 @@
+name: 取消收藏
+feature: 商城接口项目
+story: 商品取消收藏功能
+request:
+  method: post
+  url: http://101.34.221.219:8010/api.php
+  params: {
+    "s": "usergoodsfavor/cancel",
+    "application": "app",
+    "application_client_type": "ios",
+    "token": "${token}",
+  }
+  json: {
+    "id": "2"
+  }
+
+
+
+
+extract:
+  code: [ json, 'code', ]
+  msg: [ json, 'msg' ]
+
+
+validate:
+  equals:
+    状态码等于200: [ '${status_code}', 200 ]

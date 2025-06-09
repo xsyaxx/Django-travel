@@ -1,0 +1,51 @@
+-
+  name: 收藏商品
+  feature: 商城接口项目
+  story: 商品收藏功能
+  request:
+
+    method: post
+    url: http://101.34.221.219:8010/api.php?a=111
+    params: {
+      "s": "goods/favor",
+      "application": "app",
+      "application_client_type": "ios",
+      "token": "${token}",
+    }
+    json: {
+      "id": 2,
+      "is_mandatory_favor": 1
+    }
+
+  extract:
+    code: [ json, 'code', ]
+    msg: [ json, 'msg' ]
+
+  validate:
+    equals:
+      状态码等于200: [ '${status_code}', 200 ]
+
+
+-
+  request:
+
+    method: post
+    url: http://101.34.221.219:8010/api.php?a=222
+    params: {
+      "s": "goods/favor",
+      "application": "app",
+      "application_client_type": "ios",
+      "token": "${token}",
+    }
+    json: {
+      "id": 2,
+      "is_mandatory_favor": 1
+    }
+
+  extract:
+    code: [ json, 'code', ]
+    msg: [ json, 'msg' ]
+
+  validate:
+    equals:
+      状态码等于200: [ '${status_code}', 200 ]
